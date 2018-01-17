@@ -1,3 +1,4 @@
+import { ConfigModalPageModule } from './../pages/config-modal/config-modal.module';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -25,7 +26,8 @@ import { WorkProvider } from '../providers/work/work';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ConfigModalPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

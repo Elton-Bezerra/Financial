@@ -5,12 +5,51 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>Financials! {{hoje}}</h2>
-  <p>
-    Abaixo estão as informações do número de dias corridos e o número de dias úteis até o próximo quinto dia útil.    
-  </p>
-    
-  <p *ngIf="diasCorridos">Dias corridos: {{diasCorridos}}</p>
-  <p *ngIf="diasUteis">Dias úteis: {{diasUteis}}</p>
+  <ion-fab top right edge>
+      <button (click)="openModal()" ion-fab mini><ion-icon name="options"></ion-icon></button>
+  </ion-fab>
+  <ion-card *ngIf="diasCorridos && diasUteis">
+    <ion-card-header>
+      Info
+    </ion-card-header>
 
+    <ion-card-content>
+      <p>
+        Abaixo estão as informações do número de dias corridos e o número de dias úteis
+        do quinto dia útil desse mês até o próximo quinto dia útil.
+      </p>
+    </ion-card-content>
+    <ion-row>
+      <ion-col col-12>
+        <ion-icon name="beer"></ion-icon>
+        Dias corridos: {{ diasCorridos }}
+      </ion-col>
+      <ion-col col-12>
+        <ion-icon name="briefcase"></ion-icon>
+        Dias úteis:    {{ diasUteis }}
+      </ion-col>
+    </ion-row>
+  </ion-card>
+  <ion-card *ngIf="diasCorridos && diasUteis">
+      <ion-card-header>
+        Gastos estimados
+      </ion-card-header>
+  
+      <ion-card-content>
+        <p>
+          Abaixo estão as informações do número de dias corridos e o número de dias úteis
+          do quinto dia útil desse mês até o próximo quinto dia útil.
+        </p>
+      </ion-card-content>
+      <ion-row>
+        <ion-col col-12>
+          <ion-icon name="beer"></ion-icon>
+          Dias corridos: {{ diasCorridos }}
+        </ion-col>
+        <ion-col col-12>
+          <ion-icon name="briefcase"></ion-icon>
+          Dias úteis:    {{ diasUteis }}
+        </ion-col>
+      </ion-row>
+    </ion-card>
 </ion-content>
