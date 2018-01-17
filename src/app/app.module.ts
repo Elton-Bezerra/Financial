@@ -7,6 +7,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { IonicStorageModule } from '@ionic/storage';
 
 
 import { HomePage } from '../pages/home/home';
@@ -27,7 +28,9 @@ import { WorkProvider } from '../providers/work/work';
     IonicModule.forRoot(MyApp),
     HttpClientModule,
     FormsModule,
-    ConfigModalPageModule
+    ConfigModalPageModule,
+    IonicStorageModule.forRoot()
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [

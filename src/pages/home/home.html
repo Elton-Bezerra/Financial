@@ -6,7 +6,9 @@
 
 <ion-content padding>
   <ion-fab top right edge>
-      <button (click)="openModal()" ion-fab mini><ion-icon name="options"></ion-icon></button>
+    <button (click)="openModal()" ion-fab mini>
+      <ion-icon name="options"></ion-icon>
+    </button>
   </ion-fab>
   <ion-card *ngIf="diasCorridos && diasUteis">
     <ion-card-header>
@@ -15,41 +17,48 @@
 
     <ion-card-content>
       <p>
-        Abaixo estão as informações do número de dias corridos e o número de dias úteis
-        do quinto dia útil desse mês até o próximo quinto dia útil.
+        Abaixo estão as informações do número de dias corridos e o número de dias úteis do quinto dia útil desse mês até o próximo
+        quinto dia útil.
       </p>
     </ion-card-content>
     <ion-row>
-      <ion-col col-12>
+      <ion-col col-1>
         <ion-icon name="beer"></ion-icon>
+      </ion-col>
+      <ion-col col-11>
         Dias corridos: {{ diasCorridos }}
       </ion-col>
-      <ion-col col-12>
+
+      <ion-col col-1>
         <ion-icon name="briefcase"></ion-icon>
-        Dias úteis:    {{ diasUteis }}
+      </ion-col>
+      <ion-col col-11>
+
+        Dias úteis: {{ diasUteis }}
       </ion-col>
     </ion-row>
   </ion-card>
   <ion-card *ngIf="diasCorridos && diasUteis">
-      <ion-card-header>
-        Gastos estimados
-      </ion-card-header>
-  
-      <ion-card-content>
-        <p>
-          Abaixo estão as informações do número de dias corridos e o número de dias úteis
-          do quinto dia útil desse mês até o próximo quinto dia útil.
-        </p>
-      </ion-card-content>
-      <ion-row>
-        <ion-col col-12>
-          <ion-icon name="beer"></ion-icon>
-          Dias corridos: {{ diasCorridos }}
-        </ion-col>
-        <ion-col col-12>
-          <ion-icon name="briefcase"></ion-icon>
-          Dias úteis:    {{ diasUteis }}
-        </ion-col>
-      </ion-row>
-    </ion-card>
+    <ion-card-header>
+      Gastos estimados
+    </ion-card-header>
+    <ion-row>
+      <ion-col col-1>
+        <ion-icon item-start name="bus"></ion-icon>
+      </ion-col>
+      <ion-col col-11>
+        VT: {{ despesas.transporte | currency: 'BRL'}}
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-1>
+        <ion-icon name="restaurant"></ion-icon>
+      </ion-col>
+      <ion-col col-11>
+        VR: {{ despesas.refeicao | currency : 'BRL' }}
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
 </ion-content>

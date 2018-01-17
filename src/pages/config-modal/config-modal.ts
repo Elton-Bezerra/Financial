@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ViewController } from 'ionic-angular/navigation/view-controller';
+import { Storage } from '@ionic/storage';
+import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 
 /**
  * Generated class for the ConfigModalPage page.
@@ -15,15 +17,53 @@ import { ViewController } from 'ionic-angular/navigation/view-controller';
   templateUrl: 'config-modal.html',
 })
 export class ConfigModalPage {
+  public precos: any = {};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public viewCtrl: ViewController, 
+    private storage: Storage,
+    private toastCtrl: ToastController) {
+    storage.get('transporte').then((res) => {
+      this.precos.transporte = res;
+    });
+    storage.get('refeicao').then((res) => {
+      this.precos.refeicao = res;
+    });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ConfigModalPage');
+  ionViewDidEnter() {   
+    this.getConfigs();
+  }
+
+  salvarConfigs() {
+    this.storage.set('transporte', this.precos.transporte);
+    this.storage.set('refeicao', this.precos.refeicao);
+    this.presentToast('Suas configurações foram atualizadas!');
+  }
+
+  getConfigs(){  
+    this.storage.get('transporte').then((val) => { 
+      this.precos.transporte = val;      
+    });
+    this.storage.get('refeicao').then((val) => {
+      this.precos.refeicao = val;      
+    });        
   }
 
   dismiss() {
     this.viewCtrl.dismiss();
   }
+
+
+  presentToast(message) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000
+    });
+    toast.present();
+    this.dismiss();
+  }
+
 }
