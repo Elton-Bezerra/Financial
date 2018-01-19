@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ViewController } from 'ionic-angular/navigation/view-controller';
 import { Storage } from '@ionic/storage';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
+import { App } from 'ionic-angular/components/app/app';
 
 /**
  * Generated class for the ConfigModalPage page.
@@ -24,7 +25,8 @@ export class ConfigModalPage {
     public navParams: NavParams, 
     public viewCtrl: ViewController, 
     private storage: Storage,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    public appCtrl: App) {
     storage.get('transporte').then((res) => {
       this.precos.transporte = res;
     });
@@ -38,8 +40,8 @@ export class ConfigModalPage {
   }
 
   salvarConfigs() {
-    this.storage.set('transporte', this.precos.transporte);
-    this.storage.set('refeicao', this.precos.refeicao);
+    this.storage.set('transporte', this.precos.transporte.replace(/,/g, '.'));
+    this.storage.set('refeicao', this.precos.refeicao.replace(/,/g, '.'));
     this.presentToast('Suas configurações foram atualizadas!');
   }
 
@@ -60,10 +62,11 @@ export class ConfigModalPage {
   presentToast(message) {
     let toast = this.toastCtrl.create({
       message: message,
-      duration: 3000
+      duration: 3000,
+      showCloseButton: true,
+      closeButtonText: 'Ok'
     });
-    toast.present();
-    this.dismiss();
+    toast.present();        
   }
 
 }

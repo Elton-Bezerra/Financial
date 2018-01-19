@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class WorkProvider {
-  public basePath = "http://elekto.com.br/api/Calendars/br-BC/Delta?type=whole";
+  public basePath = "http://elekto.com.br/api/Calendars/br-BC/Delta?type=financial";
 
   public currentMonth = new Date();
   public nextMonth = new Date(new Date().setMonth(this.currentMonth.getMonth() + 1));
@@ -22,12 +22,12 @@ export class WorkProvider {
     this.calcularDatas();
   }
 
-  getMonthCosts() {
+  getMonthCosts(dataInicio?, dataFim?) {
     return new Promise((resolve, reject) => {
       this.http.get(this.basePath, {
         params: {
-          initialDate: this.initialDate,
-          finalDate: this.finalDate
+          initialDate: dataInicio ? dataInicio : this.initialDate,
+          finalDate: dataFim ? dataFim : this.finalDate
         }
       }).map(res => res).subscribe(res => resolve(res));
     })

@@ -4,12 +4,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-fab top right edge>
-    <button (click)="openModal()" ion-fab mini>
-      <ion-icon name="options"></ion-icon>
-    </button>
-  </ion-fab>
+<ion-content padding>  
   <ion-card *ngIf="diasCorridos && diasUteis">
     <ion-card-header>
       Info
@@ -47,7 +42,7 @@
         <ion-icon item-start name="bus"></ion-icon>
       </ion-col>
       <ion-col col-11>
-        VT: {{ despesas.transporte | currency: 'BRL'}}
+        VT: {{ despesas.transporte | currency: 'BRL':true:'1.2-2' }}
       </ion-col>
     </ion-row>
 
@@ -56,7 +51,16 @@
         <ion-icon name="restaurant"></ion-icon>
       </ion-col>
       <ion-col col-11>
-        VR: {{ despesas.refeicao | currency : 'BRL' }}
+        VR: {{ despesas.refeicao | currency : 'BRL':true:'1.2-2' }}
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-1>
+        <ion-icon name="logo-usd"></ion-icon>
+      </ion-col>
+      <ion-col col-11>
+        Total: {{ despesas.refeicao + despesas.transporte | currency : 'BRL':true:'1.2-2' }}
       </ion-col>
     </ion-row>
 

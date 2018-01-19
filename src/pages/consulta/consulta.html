@@ -11,16 +11,50 @@
 
     <ion-item>
       <ion-label floating>Data Inicial</ion-label>
-      <ion-datetime displayFormat="DD MMM YYYY"></ion-datetime>
+      <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="dataInicio"></ion-datetime>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Data Final</ion-label>
-      <ion-datetime displayFormat="DD MMM YYYY"></ion-datetime>
+      <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="dataFim"></ion-datetime>
     </ion-item>
-    <button ion-button color="dark" block round icon-start>
+    <button ion-button color="dark" block round icon-start (click)="calcular()">
         <ion-icon name="md-calculator"></ion-icon>
         Calcular
     </button>
   </ion-list>
+
+
+  <ion-card *ngIf="despesas.transporte && despesas.refeicao" >
+    <ion-card-header>
+      Gastos estimados
+    </ion-card-header>
+    <ion-row>
+      <ion-col col-1>
+        <ion-icon item-start name="bus"></ion-icon>
+      </ion-col>
+      <ion-col col-11>
+        VT: {{ despesas.transporte | currency: 'BRL':true:'1.2-2' }}
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-1>
+        <ion-icon name="restaurant"></ion-icon>
+      </ion-col>
+      <ion-col col-11>
+        VR: {{ despesas.refeicao | currency : 'BRL':true:'1.2-2' }}
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-1>
+        <ion-icon name="logo-usd"></ion-icon>
+      </ion-col>
+      <ion-col col-11>
+        Total: {{ despesas.refeicao + despesas.transporte | currency : 'BRL':true:'1.2-2' }}
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
 </ion-content>
