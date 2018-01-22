@@ -10,26 +10,27 @@ import { Storage } from '@ionic/storage/dist/storage';
 })
 export class HomePage {
 
-  public diasCorridos;
-  public diasUteis;
+  public diasCorridos = 0;
+  public diasUteis = 0;
   public hoje = new Date().toLocaleDateString();
   public despesas: any = {};
 
   constructor(
     public navCtrl: NavController,
-    public workProvider: WorkProvider,    
+    public workProvider: WorkProvider,
     private storage: Storage) {
-    setTimeout(() => {
-      this.workProvider.getMonthCosts().then((res: any) => {
-        this.diasCorridos = res.ActualDays;
-        this.diasUteis = res.WorkDays;
-        this.calcularDespesas();
-      });
-    }, 2000);
+      setTimeout( () => {
+        this.workProvider.getDaysInfo().then((res: any) => {
+          this.diasCorridos = res.ActualDays;
+          this.diasUteis = res.WorkDays;
+          this.calcularDespesas();
+        });
+      }, 2020 );
+      
   }
 
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.calcularDespesas();
   }
 

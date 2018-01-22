@@ -9,25 +9,29 @@
 <ion-content padding>
   <ion-list>
 
-    <ion-item>
-      <ion-label floating>Data Inicial</ion-label>
-      <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="dataInicio"></ion-datetime>
+    <ion-item>      
+      <ion-input placeholder="Data de Início" type="text" [(ngModel)]="dataInicio" readonly></ion-input>
+      <button (click)="escolherData(0)"  ion-button color="dark" icon-only item-end>
+          <ion-icon name='calendar'></ion-icon>
+      </button>
     </ion-item>
 
     <ion-item>
-      <ion-label floating>Data Final</ion-label>
-      <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="dataFim"></ion-datetime>
+      <ion-input placeholder="Data de Término" type="text"  [(ngModel)]="dataFim"  readonly></ion-input>
+      <button (click)="escolherData()" ion-button color="dark" icon-only item-end>
+          <ion-icon name='calendar'></ion-icon>
+      </button>
     </ion-item>
-    <button ion-button color="dark" block round icon-start (click)="calcular()">
-        <ion-icon name="md-calculator"></ion-icon>
-        Calcular
+    <button ion-button color="dark" block round icon-start (click)="calcular(1)">
+      <ion-icon name="md-calculator"></ion-icon>
+      Calcular
     </button>
   </ion-list>
 
 
-  <ion-card *ngIf="despesas.transporte && despesas.refeicao" >
+  <ion-card *ngIf="despesas.transporte && despesas.refeicao">
     <ion-card-header>
-      Gastos estimados
+      Gastos estimados em {{ diasUteis }} dias úteis
     </ion-card-header>
     <ion-row>
       <ion-col col-1>
@@ -40,7 +44,7 @@
 
     <ion-row>
       <ion-col col-1>
-        <ion-icon name="restaurant"></ion-icon> 
+        <ion-icon name="restaurant"></ion-icon>
       </ion-col>
       <ion-col col-11>
         VR: {{ despesas.refeicao | currency : 'BRL':true:'1.2-2' }}

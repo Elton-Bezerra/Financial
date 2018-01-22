@@ -1,3 +1,4 @@
+import { DatePicker } from '@ionic-native/date-picker';
 import { ConfigModalPageModule } from './../pages/config-modal/config-modal.module';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -43,7 +44,8 @@ import { WorkProvider } from '../providers/work/work';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    WorkProvider
+    WorkProvider,
+    DatePicker
   ]
 })
 export class AppModule {}

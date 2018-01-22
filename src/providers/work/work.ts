@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/delay';
 
 /*
   Generated class for the WorkProvider provider.
@@ -10,7 +11,7 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class WorkProvider {
-  public basePath = "http://elekto.com.br/api/Calendars/br-BC/Delta?type=financial";
+  public basePath = "http://elekto.com.br/api/Calendars/br-BC/Delta?";
 
   public currentMonth = new Date();
   public nextMonth = new Date(new Date().setMonth(this.currentMonth.getMonth() + 1));
@@ -18,31 +19,30 @@ export class WorkProvider {
   public finalDate;
 
   constructor(public http: HttpClient) {
-    console.log('Hello WorkProvider Provider');
     this.calcularDatas();
   }
 
-  getMonthCosts(dataInicio?, dataFim?) {
-    return new Promise((resolve, reject) => {
-      this.http.get(this.basePath, {
-        params: {
-          initialDate: dataInicio ? dataInicio : this.initialDate,
-          finalDate: dataFim ? dataFim : this.finalDate
-        }
-      }).map(res => res).subscribe(res => resolve(res));
-    })
-
+  getDaysInfo(dataInicio?, dataFim?) {
+    return new Promise((resolve, reject) => {      
+        this.http.get(this.basePath, {
+          params: {
+            initialDate: dataInicio ? dataInicio : this.initialDate,
+            finalDate: dataFim ? dataFim : this.finalDate,
+            type: dataFim ? 'whole' : 'financial'
+          }
+        }).map(res => res).subscribe(res => resolve(res));     
+    });
   }
 
   calcularDatas() {
     this.calcularQuintoDiaUtil(this.currentMonth).then(
       (res: string) => {
         this.initialDate = new Date(res).toISOString();
-      }).then(() => {
-        this.calcularQuintoDiaUtil(this.nextMonth).then(
-          (res: string) => {
-            this.finalDate = new Date(res).toISOString();
-          });
+      });
+    this.calcularQuintoDiaUtil(this.nextMonth).then(
+      (res: string) => {
+        this.finalDate = new Date(res).toISOString();
+
       });
   }
 
